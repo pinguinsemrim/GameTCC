@@ -11,7 +11,8 @@ public class Player extends Entity {
 		public boolean right,up,left,down;
 		public boolean aright,aup,aleft,adown;
 		public int ma=30,a=0;
-		public boolean ab=true,lr=false;
+		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
+		public double damage=1;
 		public int vida =10;
 		boolean dam=false;
 		public Player(int x, int y, int width, int height) {
@@ -19,13 +20,13 @@ public class Player extends Entity {
 			
 		}
 	public void tick(){
-		if(up) {
+		if(up &&!colu) {
 			y--;
-		}else if(down) {
+		}else if(down &&!cold) {
 			y++;
-		}if(left) {
+		}if(left &&!coll) {
 			x--;
-		}else if(right) {
+		}else if(right &&!colr) {
 			x++;
 		}
 		if(aup && ab) {
@@ -53,21 +54,21 @@ public class Player extends Entity {
 		}
 		
 	}
-	public void damege(int da) {
+	public void damege(double dama) {
 		dam=true;
-		vida-=da;
+		vida-=dama;
 	}
 	public void atira(int dir) {
-		Shoot s = new Shoot(Game.player.getX()+5,Game.player.getY()+5, 5, 5,1);
+		Shoot s = new Shoot(Game.player.getX()+5,Game.player.getY()+5, 5, 5,damage);
 		if(lr) {
-		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 5, 5,1);
+		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 5, 5,damage);
 			lr = false;
 		}else{
-			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 5, 5,1);
+			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 5, 5,damage);
 			lr=true;
 		}
 		s.dir = dir;
-		Game.entities.add(s);
+		Game.shoot.add(s);
 	}
 
 	

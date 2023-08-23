@@ -9,9 +9,9 @@ import Game.Game;
 public class Enemy extends Entity {
 	public boolean dam =false;
 	public int vida =10;
-	double speed = 0.2;
+	double speed = 0.3;
 	public int ma=30,a=0,dir=0;
-	public double kb =10;
+	public double kb =10,dama=3;
 	public boolean ab=true;
 	public Enemy(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -38,7 +38,7 @@ public class Enemy extends Entity {
 			dir=3;
 		}			
 		if(isColidding(this,Game.player) && ab) {
-			Game.player.damege(1);
+			Game.player.damege(dama);
 			if(dir==0) {
 				Game.player.x+=kb;
 			}else if(dir==1) {

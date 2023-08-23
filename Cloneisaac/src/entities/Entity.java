@@ -64,27 +64,11 @@ public class Entity {
 			
 			return e1Mask.intersects(e2Mask);
 		}
-		public static boolean isColiddingfora(Entity e1,Entity e2){
-			int obj1X = e1.getX() ,obj1Y = e1.getY(), obj1W= e1.getWidth(),obj1H = e1.getHeight();
-			int obj2X = e2.getX() ,obj2Y = e2.getY(), obj2W= e2.getWidth(),obj2H = e2.getHeight();
-					  if ((obj1X >= obj2X && obj1X <= obj2X + obj2W)
-					    && (obj1Y >= obj2Y && obj1Y <= obj2Y + obj2H)) {
-					   return true;
-					  } else if ((obj1X + obj1W >= obj2X && obj1X + obj1W <= obj2X + obj2W)
-					    && (obj1Y >= obj2Y && obj1Y <= obj2Y + obj2H)) {
-					   return true;
-					  } else if ((obj1X >= obj2X && obj1X <= obj2X + obj2W)
-					    && (obj1Y + obj1H >= obj2Y && obj1Y + obj1H <= obj2Y + obj2H)) {
-					   return true;
-					  } else if ((obj1X + obj1W >= obj2X && obj1X + obj1W <= obj2X + obj2W)
-					    && (obj1Y + obj1H >= obj2Y && obj1Y + obj1H <= obj2Y + obj2H)) {
-					   return true;
-					  } else {
-					   return false;
-					  }
-					 
+		public boolean isColiddingfora(Entity e1,int x,int y,Entity e2){
+			Rectangle e1Mask = new Rectangle(x + e1.maskx,y+e1.masky,e1.mwidth,e1.mheight);
+			Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx,e2.getY()+e2.masky,e2.mwidth,e2.mheight);
 			
-		}
+			return e1Mask.intersects(e2Mask);}
 		
 		public void render(Graphics g) {
 		g.drawImage(sprite,this.getX(),this.getY(),null);	

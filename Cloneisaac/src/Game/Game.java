@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
+import entities.Rock;
+import entities.Shoot;
+import itens.Updam;
 
 public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener  {
 
@@ -33,8 +36,11 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		private BufferedImage image;
 		public static Random rand;
 		public static ArrayList<Entity> entities;
+		public static ArrayList<Shoot> shoot;
 		public static Player player;
 		public static Enemy enemy;
+		public static Updam updam;
+		public static Rock rock;
 		
 		//public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont1.ttf"); 
 		//public Font newfont;
@@ -55,14 +61,19 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			
 			image =new BufferedImage(160,120,BufferedImage.TYPE_INT_RGB);
 			entities = new ArrayList<Entity>();
+			shoot = new ArrayList<Shoot>();
 			player = new Player(0,0,16,16);
 			entities.add(player); 
-			enemy = new Enemy(30,30,16,16);
+			enemy = new Enemy(50,50,16,16);
 			entities.add(enemy);
+			updam = new Updam(30,80,10,10);
+			entities.add(updam);
+			rock = new Rock(90,60,19,19);
+			entities.add(rock);
 		
 		}
 		public void initFrame() {
-			frame = new JFrame("The tale of lins");
+			frame = new JFrame("TGF");
 			frame.add(this);
 			frame.setResizable(false);
 			frame.pack();
@@ -91,9 +102,12 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		game.start();
 		
 		}
-		public void tick() {
+		public void tick() {//tick das entidades e tiros
 			for(int i =0;i<entities.size();i++) {
 				entities.get(i).tick();
+			}
+			for(int i =0;i<shoot.size();i++) {
+				shoot.get(i).tick();
 			}
 		}
 		
@@ -107,9 +121,12 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		g.setColor(new Color(0,0,0));
 		g.fillRect(0, 0,WIDTH,HEIGHT);
-		//rederizando
+		//rederizando entidades e tiros
 		for(int i =0;i<entities.size();i++) {
 			entities.get(i).render(g);
+		}
+		for(int i =0;i<shoot.size();i++) {
+			shoot.get(i).render(g);
 		}
 	    //terminou??
 		g.dispose();

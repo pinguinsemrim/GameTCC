@@ -8,6 +8,7 @@ import Game.Game;
 public class Shoot extends Entity{
 	public int dir=0;
 	public int speed=2;
+	int t=0,tm=100;
 	public double dam=0;
 	public Shoot(int x, int y, int width, int height,double dam) {
 		super(x, y, width, height);
@@ -15,7 +16,11 @@ public class Shoot extends Entity{
 		// TODO Auto-generated constructor stub
 	}
 	public void tick(){
-		
+		if(t<tm) {
+			t++;
+		}else {
+			Game.shoot.remove(this);
+		}
 		if(dir==0) {
 			x-=speed;
 		}if(dir==1) {
@@ -24,18 +29,30 @@ public class Shoot extends Entity{
 			y+=speed;
 		}if(dir==3) {
 			y-=speed;
+		}if(x>Game.WIDTH) {
+			x=0;
+		}else if(x<0) {
+			x=Game.WIDTH;
+		}if(y>Game.HEIGHT) {
+			y=0;
+		}else if(y<0) {
+			y=Game.HEIGHT;
 		}
 		for(int i=0;i<Game.entities.size();i++) {
 			if(Game.entities.get(i).getClass() == Enemy.class) {
-				if(Entity.isColiddingfora(this, Game.entities.get(i))) {
+				if(Entity.isColidding(this, Game.entities.get(i))) {
 				Enemy e =(Enemy)Game.entities.get(i);
 				e.damage(dam);
-				Game.entities.remove(this);
+				Game.shoot.remove(this);
 			}}
 		}
 	}
 	public void render(Graphics g) {
+		if(dam>=5) {
+			g.setColor(Color.yellow);
+		}else {
 		g.setColor(Color.RED);
+		}
 	g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}}
 
