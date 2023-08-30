@@ -13,15 +13,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.swing.JFrame;
-
-import entities.Enemy;
 import entities.Entity;
 import entities.Player;
-import entities.Rock;
 import entities.Shoot;
-import itens.Updam;
 
 public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener  {
 
@@ -30,17 +25,19 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static JFrame frame;
 		private Thread thread;
 		private boolean isRunning = true;
-		public static final int WIDTH = 260;
-		public static final int HEIGHT = 190 ;
-		public static final int SCALE = 3;
+		public static final double SCALE = 3;
+		public static final int WIDTH = 230;
+		public static final int HEIGHT = 150;
 		private BufferedImage image;
 		public static Random rand;
 		public static ArrayList<Entity> entities;
 		public static ArrayList<Shoot> shoot;
+		public static ArrayList<Entity> colision;
+		public static Spritesheet health;
+		public static Spritesheet tile;
 		public static Player player;
-		public static Enemy enemy;
-		public static Updam updam;
-		public static Rock rock;
+		public static Ui ui;
+		public static World world;
 		
 		//public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont1.ttf"); 
 		//public Font newfont;
@@ -52,25 +49,24 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
-		this.setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
+		this.setPreferredSize(new Dimension((int)(WIDTH*SCALE),(int)(HEIGHT*SCALE)));
 			initFrame();
 			//Sound.musicew.loop( );
 			rand = new Random();
 			 
 	//inzalando as coisas	
-			
-			image =new BufferedImage(160,120,BufferedImage.TYPE_INT_RGB);
+			image =new BufferedImage((int)(160*(SCALE/2)),(int)(120*(SCALE/2)),BufferedImage.TYPE_INT_RGB);
+			health = new Spritesheet("/Health.png");
+			tile = new Spritesheet("/Tiles.png");
 			entities = new ArrayList<Entity>();
+			colision = new ArrayList<Entity>();
 			shoot = new ArrayList<Shoot>();
-			player = new Player(0,0,16,16);
-			entities.add(player); 
-			enemy = new Enemy(50,50,16,16);
-			entities.add(enemy);
-			updam = new Updam(30,80,10,10);
-			entities.add(updam);
-			rock = new Rock(90,60,19,19);
-			entities.add(rock);
-		
+			
+			player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16);
+			world = new World("/level1.png");
+			ui = new Ui();
+			
+			entities.add(player);
 		}
 		public void initFrame() {
 			frame = new JFrame("TGF");
@@ -109,6 +105,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			for(int i =0;i<shoot.size();i++) {
 				shoot.get(i).tick();
 			}
+			ui.tick();
 		}
 		
 		public void render(){
@@ -120,20 +117,20 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			Graphics g = image.getGraphics();
 		
 		g.setColor(new Color(0,0,0));
-		g.fillRect(0, 0,WIDTH,HEIGHT);
+		g.fillRect(0, 0,(int)(WIDTH*SCALE),(int)(HEIGHT*SCALE));
 		//rederizando entidades e tiros
+		world.render(g);
 		for(int i =0;i<entities.size();i++) {
 			entities.get(i).render(g);
 		}
 		for(int i =0;i<shoot.size();i++) {
 			shoot.get(i).render(g);
 		}
+		ui.render(g);
 	    //terminou??
 		g.dispose();
 		g = bs.getDrawGraphics();
-		g.drawImage(image,0,0, WIDTH*SCALE,HEIGHT*SCALE,null); 
-		
-		
+		g.drawImage(image,0,0, (int)(WIDTH*SCALE),(int)(HEIGHT*SCALE),null); 
 		bs.show();
 		}
 		public void run() {

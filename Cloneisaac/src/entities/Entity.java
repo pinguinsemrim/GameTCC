@@ -2,6 +2,11 @@ package entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import Game.Camera;
+import Game.World;
+import Game.Game;
 public class Entity {
 
 	protected  double x;
@@ -31,7 +36,10 @@ public class Entity {
 		this.mheight = mheight;
 	}
 
-
+	public void updateCamera() {
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2),0,World.WIDTH*16 - Game.WIDTH);
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2),0,World.HEIGHT*16 - Game.HEIGHT);
+	}
 	public void setX(int newX) {
 		this.x=newX;
 	}
@@ -64,14 +72,16 @@ public class Entity {
 			
 			return e1Mask.intersects(e2Mask);
 		}
-		public boolean isColiddingfora(Entity e1,int x,int y,Entity e2){
-			Rectangle e1Mask = new Rectangle(x + e1.maskx,y+e1.masky,e1.mwidth,e1.mheight);
-			Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx,e2.getY()+e2.masky,e2.mwidth,e2.mheight);
-			
+		public boolean isColiddingfora(Entity e1,int x,int y,ArrayList<Entity> e2){
+			Rectangle e1Mask = new Rectangle(x,y,e1.mwidth,e1.mheight);
+			for(int i=0;i<e2.size();i++) {
+			Rectangle e2Mask = new Rectangle(e2.get(i).getX() + e2.get(i).maskx,e2.get(i).getY()+e2.get(i).masky,e2.get(i).mwidth,e2.get(i).mheight);
 			return e1Mask.intersects(e2Mask);}
+			return false;
+			}
 		
 		public void render(Graphics g) {
-		g.drawImage(sprite,this.getX(),this.getY(),null);	
+		g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,null);	
 			
 		}
 		

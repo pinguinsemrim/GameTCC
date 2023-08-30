@@ -3,6 +3,7 @@ package entities;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Game.Camera;
 import Game.Game;
 
 public class Shoot extends Entity{
@@ -29,14 +30,14 @@ public class Shoot extends Entity{
 			y+=speed;
 		}if(dir==3) {
 			y-=speed;
-		}if(x>Game.WIDTH) {
+		}if(x>Game.WIDTH*Game.SCALE/2) {
 			x=0;
 		}else if(x<0) {
-			x=Game.WIDTH;
-		}if(y>Game.HEIGHT) {
+			x=Game.WIDTH*Game.SCALE/2;
+		}if(y>Game.HEIGHT*Game.SCALE/2) {
 			y=0;
 		}else if(y<0) {
-			y=Game.HEIGHT;
+			y=Game.HEIGHT*Game.SCALE/2;
 		}
 		for(int i=0;i<Game.entities.size();i++) {
 			if(Game.entities.get(i).getClass() == Enemy.class) {
@@ -53,6 +54,6 @@ public class Shoot extends Entity{
 		}else {
 		g.setColor(Color.RED);
 		}
-	g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+	g.fillRect(this.getX(),this.getY(), this.getWidth(), this.getHeight());
 	}}
 

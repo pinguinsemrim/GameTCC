@@ -1,10 +1,10 @@
 package entities;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import Game.Game;
 
-import entities.Entity;
+import Game.Camera;
+import Game.Game;
+import Game.World;
 
 
 public class Player extends Entity {
@@ -12,22 +12,22 @@ public class Player extends Entity {
 		public boolean aright,aup,aleft,adown;
 		public int ma=30,a=0;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
-		public double damage=1;
-		public int vida =10;
+		public double damage=1,speed=2.2;
+		public int vida =6,maxvida = 6;
 		boolean dam=false;
 		public Player(int x, int y, int width, int height) {
 			super(x, y, width, height);
 			
 		}
 	public void tick(){
-		if(up &&!colu) {
-			y--;
-		}else if(down &&!cold) {
-			y++;
-		}if(left &&!coll) {
-			x--;
-		}else if(right &&!colr) {
-			x++;
+		if(up &&!this.isColiddingfora(this, (int)x, (int)(y-(1+speed/2)),Game.colision)) {
+			y-=speed;
+		}else if(down &&!this.isColiddingfora(this, (int)x, (int)(y+(1+speed/2)),Game.colision)) {
+			y+=speed;
+		}if(left &&!this.isColiddingfora(this, (int)(x-(1+speed/2)), (int)y,Game.colision)) {
+			x-=speed;
+		}else if(right &&!this.isColiddingfora(this, (int)(x+(1+speed/2)), (int)y,Game.colision)) {
+			x+=speed;
 		}
 		if(aup && ab) {
 			atira(3);
@@ -52,7 +52,10 @@ public class Player extends Entity {
 		if(vida <=0) {
 			Game.frame.dispose();
 		}
-		
+
+    	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH/3),0,World.WIDTH*Game.world.TILE_SIZE-Game.WIDTH);
+    	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT/3),0,World.HEIGHT*Game.world.TILE_SIZE-Game.HEIGHT);
+
 	}
 	public void damege(double dama) {
 		dam=true;
