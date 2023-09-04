@@ -1,6 +1,8 @@
 package entities;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import Game.Camera;
 import Game.Game;
@@ -10,13 +12,13 @@ import Game.World;
 public class Player extends Entity {
 		public boolean right,up,left,down;
 		public boolean aright,aup,aleft,adown;
-		public int ma=30,a=0;
+		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
 		public double damage=1,speed=2.2;
 		public int vida =6,maxvida = 6;
 		boolean dam=false;
-		public Player(int x, int y, int width, int height) {
-			super(x, y, width, height);
+		public Player(int x, int y, int width, int height,BufferedImage sprite) {
+			super(x, y, width, height, sprite);
 			
 		}
 	public void tick(){
@@ -53,8 +55,8 @@ public class Player extends Entity {
 			Game.frame.dispose();
 		}
 
-    	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH/3),0,World.WIDTH*Game.world.TILE_SIZE-Game.WIDTH);
-    	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT/3),0,World.HEIGHT*Game.world.TILE_SIZE-Game.HEIGHT);
+    	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH/2),0,World.WIDTH*World.TILE_SIZE-Game.WIDTH);
+    	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT/2),0,World.HEIGHT*World.TILE_SIZE-Game.HEIGHT);
 
 	}
 	public void damege(double dama) {
@@ -62,7 +64,7 @@ public class Player extends Entity {
 		vida-=dama;
 	}
 	public void atira(int dir) {
-		Shoot s = new Shoot(Game.player.getX()+5,Game.player.getY()+5, 5, 5,damage);
+		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 5, 5,damage);
 		if(lr) {
 		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 5, 5,damage);
 			lr = false;
@@ -75,12 +77,12 @@ public class Player extends Entity {
 	}
 
 	
-	public void render(Graphics g) {
-		if(!dam) {
-			g.setColor(Color.BLUE);
-			}else {
-			g.setColor(Color.WHITE);
-			dam=false;
-			}
-	g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+	public void render(Graphics2D g) {
+		xg=this.getX()-Camera.x;
+		yg=this.getY()-Camera.y;
+		if(right) {
+		    g.drawImage(sprite,xg,yg,null);
+		}else {
+			g.drawImage(sprite,xg,yg,null);	
+		}
 	}}

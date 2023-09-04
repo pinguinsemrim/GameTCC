@@ -12,7 +12,7 @@ public class Shoot extends Entity{
 	int t=0,tm=100;
 	public double dam=0;
 	public Shoot(int x, int y, int width, int height,double dam) {
-		super(x, y, width, height);
+		super(x, y, width, height,slime);
 		this.dam=dam;
 		// TODO Auto-generated constructor stub
 	}
@@ -54,6 +54,6 @@ public class Shoot extends Entity{
 		}else {
 		g.setColor(Color.RED);
 		}
-	g.fillRect(this.getX(),this.getY(), this.getWidth(), this.getHeight());
+	g.fillRect(this.getX()-Camera.x,this.getY()-Camera.y, this.getWidth(), this.getHeight());
 	}}
 

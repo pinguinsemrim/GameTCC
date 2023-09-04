@@ -8,7 +8,7 @@ import Game.Game;
 public class Rock extends Entity {
     Player player = Game.player;
 	public Rock(int x, int y, int width, int height) {
-		super(x, y, width, height);
+		super(x, y, width, height,slime);
 		// TODO Auto-generated constructor stub
 	}
 	public void tick() {

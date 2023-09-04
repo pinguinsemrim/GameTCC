@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import Game.Camera;
 import Game.Game;
@@ -14,8 +16,8 @@ public class Enemy extends Entity {
 	public int ma=30,a=0,dir=0;
 	public double kb =10,dama=1;
 	public boolean ab=true;
-	public Enemy(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public Enemy(int x, int y, int width, int height,BufferedImage sprite) {
+		super(x, y, width, height,sprite);
 		// TODO Auto-generated constructor stub
 	
 	}
@@ -63,13 +65,7 @@ public class Enemy extends Entity {
 		vida-=dam2;
 	}
 	public void render(Graphics g) {
-		if(!dam) {
-		g.setColor(Color.GREEN);
-		}else {
-		g.setColor(Color.WHITE);
-		dam=false;
-		}
-		g.fillRect(this.getX(),this.getY(), this.getWidth(), this.getWidth());	
+		
 			
 	}
 

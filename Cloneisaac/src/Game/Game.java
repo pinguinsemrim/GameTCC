@@ -3,6 +3,7 @@ package Game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,7 +14,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+
 import javax.swing.JFrame;
+
 import entities.Entity;
 import entities.Player;
 import entities.Shoot;
@@ -35,6 +38,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static ArrayList<Entity> colision;
 		public static Spritesheet health;
 		public static Spritesheet tile;
+		public static Spritesheet slime;
+		public static Spritesheet flower;
 		public static Player player;
 		public static Ui ui;
 		public static World world;
@@ -44,6 +49,13 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		public int mx,my;
 		public int[] pixels;
+		public void sprites() {
+			health = new Spritesheet("/Health.png");
+			tile = new Spritesheet("/Tiles.png");
+			slime = new Spritesheet("/slimecube.png");
+			flower = new Spritesheet("/flores.png");
+		}
+		
 		public Game() {
 			
 		addKeyListener(this);
@@ -55,14 +67,13 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			rand = new Random();
 			 
 	//inzalando as coisas	
-			image =new BufferedImage((int)(160*(SCALE/2)),(int)(120*(SCALE/2)),BufferedImage.TYPE_INT_RGB);
-			health = new Spritesheet("/Health.png");
-			tile = new Spritesheet("/Tiles.png");
+			image =new BufferedImage((int)(160*(SCALE)),(int)(120*(SCALE)),BufferedImage.TYPE_INT_RGB);
+			
 			entities = new ArrayList<Entity>();
 			colision = new ArrayList<Entity>();
 			shoot = new ArrayList<Shoot>();
-			
-			player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16);
+			sprites();
+			player = new Player(WIDTH/2 - 30,HEIGHT/2,40,40,Entity.slime);
 			world = new World("/level1.png");
 			ui = new Ui();
 			
@@ -115,14 +126,16 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 				return;
 			}
 			Graphics g = image.getGraphics();
-		
+			Graphics2D g2 = (Graphics2D) g;
 		g.setColor(new Color(0,0,0));
 		g.fillRect(0, 0,(int)(WIDTH*SCALE),(int)(HEIGHT*SCALE));
 		//rederizando entidades e tiros
 		world.render(g);
 		for(int i =0;i<entities.size();i++) {
-			entities.get(i).render(g);
+			Entity e = entities.get(i);
+			e.render(g2);
 		}
+		
 		for(int i =0;i<shoot.size();i++) {
 			shoot.get(i).render(g);
 		}

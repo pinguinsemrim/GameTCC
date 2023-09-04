@@ -1,5 +1,6 @@
 package entities;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -13,16 +14,16 @@ public class Entity {
 	protected double y;
 	protected int width;
 	protected int height;
-	private BufferedImage sprite;
+	protected BufferedImage sprite;
 	public int maskx,masky,mwidth,mheight;
-
-
-	public Entity (int x,int y,int width,int height/*,BufferedImage sprite*/) {
+	public static BufferedImage slime = Game.slime.getSprite(0,0,34,32);
+	public static ArrayList<BufferedImage> flower;
+	public Entity (int x,int y,int width,int height,BufferedImage sprite) {
 	this.x = x ;	
 	this.y = y;
 	this.width = width;
 	this.height =height;
-	//this.sprite =sprite;
+	this.sprite =sprite;
 	this.maskx = 0;
 	this.masky = 0;
 	this.mwidth = width;
@@ -37,8 +38,8 @@ public class Entity {
 	}
 
 	public void updateCamera() {
-		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2),0,World.WIDTH*16 - Game.WIDTH);
-		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2),0,World.HEIGHT*16 - Game.HEIGHT);
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2),0,World.WIDTH*Game.world.TILE_SIZE - Game.WIDTH);
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2),0,World.HEIGHT*Game.world.TILE_SIZE - Game.HEIGHT);
 	}
 	public void setX(int newX) {
 		this.x=newX;
@@ -67,7 +68,7 @@ public class Entity {
 		}
 		
 		public static boolean isColidding(Entity e1,Entity e2){
-			Rectangle e1Mask = new Rectangle(e1.getX() + e1.maskx,e1.getY()+e1.masky,e1.mwidth,e1.mheight);
+			Rectangle e1Mask = new Rectangle(e1.getX()+ e1.maskx,e1.getY()+e1.masky,e1.mwidth,e1.mheight);
 			Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx,e2.getY()+e2.masky,e2.mwidth,e2.mheight);
 			
 			return e1Mask.intersects(e2Mask);
@@ -80,10 +81,11 @@ public class Entity {
 			return false;
 			}
 		
-		public void render(Graphics g) {
-		g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,null);	
-			
+		public void render(Graphics2D g) {
+		g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,this.getWidth(),this.getHeight(),null);	
+		//this.render(g);
 		}
+
 		
 		
 		

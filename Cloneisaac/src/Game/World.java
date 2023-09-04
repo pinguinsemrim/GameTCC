@@ -7,16 +7,15 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import entities.Enemy;
 import entities.Entity;
-import entities.Player;
+import entities.Flower;
 import entities.Rock;
 import itens.Updam;
 
 public class World {
 	public static Tile[] tiles;
 	public static int WIDTH,HEIGHT;
-	public static final int TILE_SIZE = 20;
+	public static final int TILE_SIZE = 40;
 	
 	
 	public World(String path){
@@ -40,15 +39,15 @@ public class World {
 						Game.player.setX(xx*TILE_SIZE);
 						Game.player.setY(yy*TILE_SIZE);
 					}else if(pixelAtual == 0xFFFF0000) {
-						Enemy enemy = new Enemy(xx*TILE_SIZE,yy*TILE_SIZE,16,9);
+						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,40,40,Entity.flower);
 						Game.entities.add(enemy);
 					}else if(pixelAtual == 0xFFffc30e) {
-						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,19,19);
+						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
 						Game.colision.add(rock);
 						Game.entities.add(rock);
 					}
 					else if(pixelAtual == 0xFF99d9ea) {
-						Updam updam = new Updam(xx*TILE_SIZE,yy*TILE_SIZE,10,10);
+						Updam updam = new Updam(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
 						Game.entities.add(updam);
 					}
 			}
@@ -67,11 +66,11 @@ public class World {
 	}
 	
 	public void render(Graphics g){
-		int xstart = Camera.x >> 4;
-		int ystart = Camera.y >> 4;
+		int xstart = Camera.x >> 6;
+		int ystart = Camera.y >> 6;
 		
 		int xfinal = xstart + (Game.WIDTH >> 4);
-		int yfinal = ystart + (Game.HEIGHT >> 4);
+		int yfinal = ystart + (Game.HEIGHT >> 3);
 		
 		for(int xx = xstart;xx <= xfinal; xx++) {
 			for(int yy = ystart; yy <= yfinal; yy++) {
