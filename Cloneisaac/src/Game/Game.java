@@ -34,7 +34,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		private BufferedImage image;
 		public static Random rand;
 		public static ArrayList<Entity> entities;
-		public static ArrayList<Shoot> shoot;
+		public static ArrayList<Entity> enimies;
+		public static ArrayList<Entity> shoot;
 		public static ArrayList<Entity> colision;
 		public static Spritesheet health;
 		public static Spritesheet tile;
@@ -70,8 +71,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			image =new BufferedImage((int)(160*(SCALE)),(int)(120*(SCALE)),BufferedImage.TYPE_INT_RGB);
 			
 			entities = new ArrayList<Entity>();
+			enimies = new ArrayList<Entity>();
 			colision = new ArrayList<Entity>();
-			shoot = new ArrayList<Shoot>();
+			shoot = new ArrayList<Entity>();
 			sprites();
 			player = new Player(WIDTH/2 - 30,HEIGHT/2,40,40,Entity.slime);
 			world = new World("/level1.png");
@@ -137,7 +139,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		}
 		
 		for(int i =0;i<shoot.size();i++) {
-			shoot.get(i).render(g);
+			shoot.get(i).render(g2);
 		}
 		ui.render(g);
 	    //terminou??

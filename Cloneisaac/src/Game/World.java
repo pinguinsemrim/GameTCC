@@ -39,8 +39,10 @@ public class World {
 						Game.player.setX(xx*TILE_SIZE);
 						Game.player.setY(yy*TILE_SIZE);
 					}else if(pixelAtual == 0xFFFF0000) {
-						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,40,40,Entity.flower);
+						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.flower);
 						Game.entities.add(enemy);
+						Game.enimies.add(enemy);
+						Game.colision.add(enemy);
 					}else if(pixelAtual == 0xFFffc30e) {
 						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
 						Game.colision.add(rock);

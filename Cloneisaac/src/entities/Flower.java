@@ -11,15 +11,21 @@ public class Flower extends Entity {
 	public boolean dam =false;
 	public int vida =10;
 	public int ma=30,a=0,dir=0;
-	public double kb =10,dama=1;
+	public double kb =50,dama=1;
 	public boolean ab=true,animate=false;
+	private BufferedImage[] flowers;
 	private int FAnima = 0;
     private int FMax = 3;
-    private int maxSprite = 4;
+    private int maxSprite = 2;
     private int curSprite = 0;
+    private double damage =1;
 	public Flower(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		// TODO Auto-generated constructor stub
+		flowers = new BufferedImage[24];
+		for(int i = 0; i < maxSprite ; i++){
+			flowers[i] = Game.flower.getSprite(0 + (i*40),0,40,40);
+			}
 	}
 	public void tick(){
 		if(vida<=0) {
@@ -33,11 +39,11 @@ public class Flower extends Entity {
 		}
 		if(isColidding(this,Game.player) && ab) {
 			Game.player.damege(dama);
-			if(dir==0) {
-				Game.player.x+=kb;
-			}else if(dir==1) {
+			if(Game.player.left) {
 				Game.player.x-=kb;
-			}else if(dir==2) {
+			}else if(Game.player.right) {
+				Game.player.x+=kb;
+			}else if(Game.player.down) {
 				Game.player.y+=kb;
 			}else {
 				Game.player.y-=kb;
@@ -56,6 +62,12 @@ public class Flower extends Entity {
 		dam=true;
 		vida-=dam2;
 	}
+	public void Shoot() {
+		Seed s = new Seed(this.getX()+this.height/2,this.getY()+this.height/2, 5, 5,
+				damage,Math.cos(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY())),
+				Math.sin(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY())));
+		Game.shoot.add(s);
+	}
 	public void render(Graphics2D g) {
 		if(animate) {
 			 FAnima++;
@@ -64,8 +76,9 @@ public class Flower extends Entity {
 				   FAnima=0;
 				   if(curSprite == maxSprite) {
 					   curSprite =0;
+					   Shoot();
 				   }}}
-		      sprite = Entity.flower.get(curSprite);
+		      sprite = flowers[curSprite];
 		      g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,this.getWidth(),this.getHeight(),null);	
 		      }
 

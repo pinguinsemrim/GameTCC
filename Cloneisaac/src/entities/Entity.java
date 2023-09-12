@@ -17,7 +17,7 @@ public class Entity {
 	protected BufferedImage sprite;
 	public int maskx,masky,mwidth,mheight;
 	public static BufferedImage slime = Game.slime.getSprite(0,0,34,32);
-	public static ArrayList<BufferedImage> flower;
+	public static BufferedImage flower = Game.flower.getSprite(0, 0, 40, 40);
 	public Entity (int x,int y,int width,int height,BufferedImage sprite) {
 	this.x = x ;	
 	this.y = y;
@@ -66,6 +66,9 @@ public class Entity {
 		public double calculateDistance(int x1,int y1,int x2,int y2) {
 			return Math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 		}
+		public double calculateAngle(int x1,int y1,int x2,int y2) {
+			return Math.atan2(y2 - y1, x2 - x1);
+		}
 		
 		public static boolean isColidding(Entity e1,Entity e2){
 			Rectangle e1Mask = new Rectangle(e1.getX()+ e1.maskx,e1.getY()+e1.masky,e1.mwidth,e1.mheight);
@@ -84,6 +87,10 @@ public class Entity {
 		public void render(Graphics2D g) {
 		g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,this.getWidth(),this.getHeight(),null);	
 		//this.render(g);
+		}
+
+		public void damage(double dam2) {
+			
 		}
 
 		

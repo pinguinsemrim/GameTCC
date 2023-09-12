@@ -30,22 +30,13 @@ public class Shoot extends Entity{
 			y+=speed;
 		}if(dir==3) {
 			y-=speed;
-		}if(x>Game.WIDTH*Game.SCALE/2) {
-			x=0;
-		}else if(x<0) {
-			x=Game.WIDTH*Game.SCALE/2;
-		}if(y>Game.HEIGHT*Game.SCALE/2) {
-			y=0;
-		}else if(y<0) {
-			y=Game.HEIGHT*Game.SCALE/2;
 		}
-		for(int i=0;i<Game.entities.size();i++) {
-			if(Game.entities.get(i).getClass() == Enemy.class) {
-				if(Entity.isColidding(this, Game.entities.get(i))) {
-				Enemy e =(Enemy)Game.entities.get(i);
+		for(int i=0;i<Game.enimies.size();i++) {
+				if(Entity.isColidding(this, Game.enimies.get(i))) {
+				Entity e =Game.enimies.get(i);
 				e.damage(dam);
 				Game.shoot.remove(this);
-			}}
+			}
 		}
 	}
 	public void render(Graphics g) {
