@@ -41,6 +41,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static Spritesheet tile;
 		public static Spritesheet slime;
 		public static Spritesheet flower;
+		public static Spritesheet deathflower;
+		public static Spritesheet seed;
 		public static Player player;
 		public static Ui ui;
 		public static World world;
@@ -51,10 +53,12 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public int mx,my;
 		public int[] pixels;
 		public void sprites() {
+			deathflower = new Spritesheet("/deathFlower.png");
 			health = new Spritesheet("/Health.png");
 			tile = new Spritesheet("/Tiles.png");
 			slime = new Spritesheet("/slimecube.png");
 			flower = new Spritesheet("/flores.png");
+			seed = new Spritesheet("/seed.png");
 		}
 		
 		public Game() {
@@ -161,7 +165,6 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		delta += (now - lastTime) / ns;	
 		lastTime = now;
 		if(delta >= 1) {
-	    tick();	render();		
 		frames ++;	
 		delta --;}
 		if(System.currentTimeMillis() - timer >= 1000 ) {

@@ -14,7 +14,7 @@ public class Seed extends Entity{
 	double vx=0,vy=0;
 			
 	public Seed (int x, int y, int width, int height,double dam,double vx,double vy) {
-		super(x, y, width, height,slime);
+		super(x, y, width, height,seed);
 		this.dam=dam;
 		this.vx=vx;
 		this.vy=vy;
@@ -29,7 +29,10 @@ public class Seed extends Entity{
 		x+=vx*speed;
 		y+=vy*speed;
 		
-		
+		if(this.isColidding(this, Game.player)) {
+			Game.player.damege(dam);
+			Game.shoot.remove(this);
+	}
 	}
 	}
 

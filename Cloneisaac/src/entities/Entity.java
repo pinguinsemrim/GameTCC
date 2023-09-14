@@ -18,6 +18,7 @@ public class Entity {
 	public int maskx,masky,mwidth,mheight;
 	public static BufferedImage slime = Game.slime.getSprite(0,0,34,32);
 	public static BufferedImage flower = Game.flower.getSprite(0, 0, 40, 40);
+	public static BufferedImage seed = Game.seed.getSprite(0, 0, 9, 9);
 	public Entity (int x,int y,int width,int height,BufferedImage sprite) {
 	this.x = x ;	
 	this.y = y;
