@@ -17,6 +17,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import World.World;
 import entities.Entity;
 import entities.Player;
 import entities.Shoot;
@@ -165,6 +166,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		delta += (now - lastTime) / ns;	
 		lastTime = now;
 		if(delta >= 1) {
+			tick();	
+			render();	
 		frames ++;	
 		delta --;}
 		if(System.currentTimeMillis() - timer >= 1000 ) {

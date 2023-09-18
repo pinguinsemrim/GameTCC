@@ -2,15 +2,17 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-import Game.Camera;
 import Game.Game;
+import World.Camera;
 
 public class Shoot extends Entity{
 	public int dir=0;
 	public int speed=2;
 	int t=0,tm=100;
 	public double dam=0;
+	double sca = 1;
 	public Shoot(int x, int y, int width, int height,double dam) {
 		super(x, y, width, height,slime);
 		this.dam=dam;
@@ -18,6 +20,7 @@ public class Shoot extends Entity{
 	}
 	public void tick(){
 		if(t<tm) {
+			
 			t++;
 		}else {
 			Game.shoot.remove(this);
@@ -38,13 +41,10 @@ public class Shoot extends Entity{
 				Game.shoot.remove(this);
 			}
 		}
+		
 	}
 	public void render(Graphics g) {
-		if(dam>=5) {
-			g.setColor(Color.yellow);
-		}else {
-		g.setColor(Color.RED);
-		}
-	g.fillRect(this.getX()-Camera.x,this.getY()-Camera.y, this.getWidth(), this.getHeight());
+	
+	g.drawImage(Entity.slime, this.getX(), this.getY(), this.width, this.height, null);
 	}}
 

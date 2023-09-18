@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import Game.Camera;
 import Game.Game;
-import Game.World;
+import World.Camera;
+import World.World;
 
 
 public class Player extends Entity {
@@ -15,20 +15,20 @@ public class Player extends Entity {
 		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
 		public double damage=1,speed=2.2;
-		public int vida =6,maxvida = 6;
+		public int maxvida = 6,vida =maxvida;
 		boolean dam=false;
 		public Player(int x, int y, int width, int height,BufferedImage sprite) {
 			super(x, y, width, height, sprite);
 			
 		}
 	public void tick(){
-		if(up &&!this.isColiddingfora(this, (int)x, (int)(y-(1+speed/2)),Game.colision)) {
+		if(up &&World.isFree(this.getX(), this.getY()-(int)(speed))) {
 			y-=speed;
-		}else if(down &&!this.isColiddingfora(this, (int)x, (int)(y+(1+speed/2)),Game.colision)) {
+		}else if(down &&World.isFree(this.getX(), this.getY()+(int)(speed))) {
 			y+=speed;
-		}if(left &&!this.isColiddingfora(this, (int)(x-(1+speed/2)), (int)y,Game.colision)) {
+		}if(left &&World.isFree(this.getX()-(int)(speed), this.getY())) {
 			x-=speed;
-		}else if(right &&!this.isColiddingfora(this, (int)(x+(1+speed/2)), (int)y,Game.colision)) {
+		}else if(right &&World.isFree(this.getX()+(int)(speed), this.getY())) {
 			x+=speed;
 		}
 		if(aup && ab) {
@@ -54,7 +54,7 @@ public class Player extends Entity {
 		if(vida <=0) {
 			Game.frame.dispose();
 		}
-
+		
     	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH/2),0,World.WIDTH*World.TILE_SIZE-Game.WIDTH);
     	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT/2),0,World.HEIGHT*World.TILE_SIZE-Game.HEIGHT);
 
@@ -64,12 +64,12 @@ public class Player extends Entity {
 		vida-=dama;
 	}
 	public void atira(int dir) {
-		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 5, 5,damage);
+		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 10, 10,damage);
 		if(lr) {
-		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 5, 5,damage);
+		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 10,10,damage);
 			lr = false;
 		}else{
-			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 5, 5,damage);
+			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 10,10,damage);
 			lr=true;
 		}
 		s.dir = dir;

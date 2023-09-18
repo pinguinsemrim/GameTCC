@@ -5,9 +5,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Game.Camera;
-import Game.World;
 import Game.Game;
+import World.Camera;
+import World.World;
 public class Entity {
 
 	protected  double x;
@@ -39,8 +39,8 @@ public class Entity {
 	}
 
 	public void updateCamera() {
-		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2),0,World.WIDTH*Game.world.TILE_SIZE - Game.WIDTH);
-		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2),0,World.HEIGHT*Game.world.TILE_SIZE - Game.HEIGHT);
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2),0,World.WIDTH*World.TILE_SIZE - Game.WIDTH);
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2),0,World.HEIGHT*World.TILE_SIZE - Game.HEIGHT);
 	}
 	public void setX(int newX) {
 		this.x=newX;

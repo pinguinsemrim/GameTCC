@@ -1,17 +1,16 @@
-package Game;
+package World;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-
+import World.Wall;
 import entities.Entity;
 import entities.Flower;
 import entities.Rock;
 import itens.Updam;
-
+import Game.Game;
 public class World {
 	public static Tile[] tiles;
 	public static int WIDTH,HEIGHT;
@@ -33,7 +32,7 @@ public class World {
 					if(pixelAtual == 0xFF000000) {
 						tiles[xx + (yy * WIDTH)] = new Tile(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_FLOOR);						
 					}else if(pixelAtual == 0xFFffffff) {
-						tiles[xx + (yy * WIDTH)] = new Tile(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL);
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL);
 						
 					}else if(pixelAtual == 0xFF0026FF) {
 						Game.player.setX(xx*TILE_SIZE);
@@ -42,11 +41,10 @@ public class World {
 						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.flower);
 						Game.entities.add(enemy);
 						Game.enimies.add(enemy);
-						Game.colision.add(enemy);
 					}else if(pixelAtual == 0xFFffc30e) {
-						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
-						Game.colision.add(rock);
-						Game.entities.add(rock);
+						//Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
+						//Game.colision.add(rock);
+						//Game.entities.add(rock);
 					}
 					else if(pixelAtual == 0xFF99d9ea) {
 						Updam updam = new Updam(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
@@ -57,6 +55,24 @@ public class World {
 			e.printStackTrace();
 		}
 	}
+	public static boolean isFree(int xnext,int ynext) {
+		int x1 = xnext/TILE_SIZE;	
+		int y1 = ynext/TILE_SIZE;	
+		
+		int x2 = (xnext+TILE_SIZE-1)/TILE_SIZE;
+		int y2 = ynext/TILE_SIZE;
+		
+		int x3 = xnext/TILE_SIZE;
+		int y3 = (ynext + TILE_SIZE-1)/TILE_SIZE;
+		
+		int x4 = (xnext+TILE_SIZE-1)/TILE_SIZE;
+		int y4 = (ynext + TILE_SIZE-1)/TILE_SIZE;
+		
+		return !((tiles[x1 + (y1*World.WIDTH )] instanceof Wall) 
+				|| (tiles[x2 + (y2*World.WIDTH )] instanceof Wall) 
+				|| (tiles[x3 + (y3*World.WIDTH )] instanceof Wall) 
+				|| (tiles[x4 + (y4*World.WIDTH )] instanceof Wall));
+		}
 	
 	public static void passaGame(int lvl){
 		//Game.spritesheet = new Spritesheet("/spritesheet.png");

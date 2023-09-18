@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import Game.Camera;
 import Game.Game;
+import World.Camera;
 
 
 public class Enemy extends Entity {

@@ -1,4 +1,4 @@
-package Game;
+package World;
 
 public class Camera {
 

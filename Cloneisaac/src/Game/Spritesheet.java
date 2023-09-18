@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Spritesheet {
 
-	private BufferedImage spritesheet;
+	public BufferedImage spritesheet;
 	
 	public Spritesheet(String path)
 	{
