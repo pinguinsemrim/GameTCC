@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Game.Game;
 import World.Camera;
+import World.World;
 
 
 public class Enemy extends Entity {
@@ -27,16 +28,16 @@ public class Enemy extends Entity {
 		}
 		
 		if(this.calculateDistance(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()) <8000) {
-		if((int)x < Game.player.getX() &&!this.isColiddingfora(this, (int)x, (int)(y-(speed)),Game.colision)) {
+		if((int)x < Game.player.getX() &&World.isFree(this.getX()+(int)(speed), this.getY())) {
 			x+=speed;			
 			dir=0;
-		}else if((int)x > Game.player.getX() &&!this.isColiddingfora(this, (int)x, (int)(y+(speed)),Game.colision)) {
+		}else if((int)x > Game.player.getX() &&World.isFree(this.getX()-(int)(speed), this.getY())) {
 			x-=speed;
 			dir=1;
-		}if((int)y < Game.player.getY() &&!this.isColiddingfora(this, (int)(x-(speed)), (int)(y),Game.colision)) {
+		}if((int)y < Game.player.getY() &&World.isFree(this.getX(), this.getY()+(int)(speed))) {
 			y+=speed;
 			dir=2;
-		}else if((int)y > Game.player.getY() &&!this.isColiddingfora(this, (int)(x+(speed)), (int)y,Game.colision)) {
+		}else if((int)y > Game.player.getY() &&World.isFree(this.getX(), this.getY()-(int)(speed))) {
 			y-=speed;
 			dir=3;
 		}}
