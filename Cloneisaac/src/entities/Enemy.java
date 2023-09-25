@@ -27,7 +27,7 @@ public class Enemy extends Entity {
 			Game.entities.remove(this);
 		}
 		
-		if(this.calculateDistance(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()) <8000) {
+		if(this.calculateDistance(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()) <200) {
 		if((int)x < Game.player.getX() &&World.isFree(this.getX()+(int)(speed), this.getY())) {
 			x+=speed;			
 			dir=0;
@@ -43,15 +43,8 @@ public class Enemy extends Entity {
 		}}
 		if(isColidding(this,Game.player) && ab) {
 			Game.player.damege(dama);
-			if(dir==0) {
-				Game.player.x+=kb;
-			}else if(dir==1) {
-				Game.player.x-=kb;
-			}else if(dir==2) {
-				Game.player.y+=kb;
-			}else {
-				Game.player.y-=kb;
-			}
+			Game.player.x += Math.cos(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;
+			Game.player.y += Math.sin(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;		
 			ab=false;
 			}
 		if(ab==false) {
@@ -65,8 +58,16 @@ public class Enemy extends Entity {
 		dam=true;
 		vida-=dam2;
 	}
-	public void render(Graphics g) {
-		
+	public void render(Graphics2D g) {
+		if(dir==1) {
+			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+		}else if(dir==2) {
+			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+		}else if(dir==3) {
+			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+		}else {
+			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+		}
 			
 	}
 

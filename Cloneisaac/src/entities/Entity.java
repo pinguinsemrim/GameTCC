@@ -10,8 +10,8 @@ import World.Camera;
 import World.World;
 public class Entity {
 
-	protected  double x;
-	protected double y;
+	public  double x;
+	public double y;
 	protected int width;
 	protected int height;
 	protected BufferedImage sprite;
@@ -19,6 +19,7 @@ public class Entity {
 	public static BufferedImage slime = Game.slime.getSprite(0,0,34,32);
 	public static BufferedImage flower = Game.flower.getSprite(0, 0, 40, 40);
 	public static BufferedImage seed = Game.seed.getSprite(0, 0, 9, 9);
+	public static BufferedImage koala1 = Game.koala.getSprite(0, 0, 24, 40);
 	public Entity (int x,int y,int width,int height,BufferedImage sprite) {
 	this.x = x ;	
 	this.y = y;

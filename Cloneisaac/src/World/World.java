@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import World.Wall;
+import entities.Enemy;
 import entities.Entity;
 import entities.Flower;
 import entities.Rock;
@@ -35,16 +36,21 @@ public class World {
 						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL);
 						
 					}else if(pixelAtual == 0xFF0026FF) {
-						Game.player.setX(xx*TILE_SIZE);
-						Game.player.setY(yy*TILE_SIZE);
+						
+						Game.player.x =(xx*TILE_SIZE);
+						Game.player.y =(yy*TILE_SIZE);
 					}else if(pixelAtual == 0xFFFF0000) {
 						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.flower);
 						Game.entities.add(enemy);
 						Game.enimies.add(enemy);
-					}else if(pixelAtual == 0xFFffc30e) {
-						//Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
-						//Game.colision.add(rock);
-						//Game.entities.add(rock);
+					}else if(pixelAtual == 0xFF7F6A00) {
+						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
+						Game.colision.add(rock);
+						Game.entities.add(rock);
+					}else if(pixelAtual == 0xFFFF6A00) {
+						Enemy enemy = new Enemy(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.koala1);
+						Game.entities.add(enemy);
+						Game.enimies.add(enemy);;
 					}
 					else if(pixelAtual == 0xFF99d9ea) {
 						Updam updam = new Updam(xx*TILE_SIZE,yy*TILE_SIZE,40,40);

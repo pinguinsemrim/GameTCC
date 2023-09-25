@@ -19,11 +19,11 @@ public class Ui {
 	public void render(Graphics g) {
 		
 		for(int i=0;i<maxdraw;i++) {
-			 g.drawImage(hollow, 0+(i*16), 0, null);
+			 g.drawImage(hollow, 0+(i*25), 0,25,25, null);
 			 if(Game.player.vida%2!=0 && draw==i) {
-				g.drawImage(half, 0+(i*16), 0, null);
+				g.drawImage(half, 0+(i*25), 0,25,25, null);
 			}else if(draw>i) {
-				g.drawImage(full, 0+(i*16), 0, null);
+				g.drawImage(full, 0+(i*25), 0,25,25, null);
 			}
 		}
 	}

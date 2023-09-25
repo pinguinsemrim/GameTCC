@@ -44,6 +44,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static Spritesheet flower;
 		public static Spritesheet deathflower;
 		public static Spritesheet seed;
+		public static Spritesheet koala;
 		public static Player player;
 		public static Ui ui;
 		public static World world;
@@ -60,6 +61,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			slime = new Spritesheet("/slimecube.png");
 			flower = new Spritesheet("/flores.png");
 			seed = new Spritesheet("/seed.png");
+			koala = new Spritesheet("/Koala.png");
 		}
 		
 		public Game() {
