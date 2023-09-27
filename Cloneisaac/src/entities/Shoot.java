@@ -11,7 +11,7 @@ public class Shoot extends Entity{
 	public int dir=0;
 	public int speed=2;
 	int t=0,tm=100;
-	public double dam=0;
+	public double dam=10;
 	double sca = 1;
 	public Shoot(int x, int y, int width, int height,double dam) {
 		super(x, y, width, height,slime);
@@ -44,7 +44,8 @@ public class Shoot extends Entity{
 		
 	}
 	public void render(Graphics g) {
-	
-	g.drawImage(Entity.slime, this.getX(), this.getY(), this.width, this.height, null);
+	height-=t;
+	width-=t;
+	g.drawImage(Entity.slime, this.getX(), this.getY(), width, height, null);
 	}}
 

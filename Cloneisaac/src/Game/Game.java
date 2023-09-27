@@ -39,6 +39,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static ArrayList<Entity> shoot;
 		public static ArrayList<Entity> colision;
 		public static Spritesheet health;
+		public static Spritesheet tear;
+		public static Spritesheet boll;
+		public static Spritesheet plaer;
 		public static Spritesheet tile;
 		public static Spritesheet slime;
 		public static Spritesheet flower;
@@ -62,6 +65,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			flower = new Spritesheet("/flores.png");
 			seed = new Spritesheet("/seed.png");
 			koala = new Spritesheet("/Koala.png");
+			plaer = new Spritesheet("/Player.png");
+			tear = new Spritesheet("/Tears.png");
+			boll = new Spritesheet("/Ball.png");
 		}
 		
 		public Game() {
@@ -82,7 +88,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			colision = new ArrayList<Entity>();
 			shoot = new ArrayList<Entity>();
 			sprites();
-			player = new Player(WIDTH/2 - 30,HEIGHT/2,40,40,Entity.slime);
+			player = new Player(WIDTH/2 - 30,HEIGHT/2,150,150,Entity.slime);
 			world = new World("/level1.png");
 			ui = new Ui();
 			

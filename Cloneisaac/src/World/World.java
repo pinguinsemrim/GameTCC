@@ -93,7 +93,7 @@ public class World {
 		int xstart = Camera.x >> 6;
 		int ystart = Camera.y >> 6;
 		
-		int xfinal = xstart + (Game.WIDTH >> 4);
+		int xfinal = xstart + (Game.WIDTH >> 3);
 		int yfinal = ystart + (Game.HEIGHT >> 3);
 		
 		for(int xx = xstart;xx <= xfinal; xx++) {

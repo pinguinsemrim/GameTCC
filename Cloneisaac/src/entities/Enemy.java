@@ -13,7 +13,7 @@ import World.World;
 public class Enemy extends Entity {
 	public boolean dam =false;
 	public int vida =10;
-	double speed = 0.3;
+	double speed = 0.7;
 	public int ma=30,a=0,dir=0;
 	public double kb =10,dama=1;
 	public boolean ab=true;
@@ -27,7 +27,7 @@ public class Enemy extends Entity {
 			Game.entities.remove(this);
 		}
 		
-		if(this.calculateDistance(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()) <200) {
+		if(this.calculateDistance(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()) <300) {
 		if((int)x < Game.player.getX() &&World.isFree(this.getX()+(int)(speed), this.getY())) {
 			x+=speed;			
 			dir=0;

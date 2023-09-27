@@ -15,11 +15,16 @@ public class Player extends Entity {
 		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
 		public double damage=1,speed=2.2;
-		public int maxvida = 6,vida =maxvida;
-		boolean dam=false;
+		public int maxvida = 800,vida =maxvida;
+		private BufferedImage[] players;
+		private int maxSprite=4,curSprite;
+		private boolean dam=false;
 		public Player(int x, int y, int width, int height,BufferedImage sprite) {
 			super(x, y, width, height, sprite);
-			
+			players = new BufferedImage[4];
+			for(int i = 0; i < maxSprite ; i++){
+				players[i] = Game.plaer.getSprite(0,0 + (i*75),75,75);
+				}
 		}
 	public void tick(){
 		if(up &&World.isFree(this.getX(), this.getY()-(int)(speed))) {
@@ -34,15 +39,19 @@ public class Player extends Entity {
 		if(aup && ab) {
 			atira(3);
 			ab=false;
+			curSprite=1;
 		}else if(adown && ab) {
 			atira(2);
 			ab=false;
+			curSprite=0;
 		}else if(aleft && ab) {
 			atira(0);
 			ab=false;
+			curSprite=2;
 		}else if(aright && ab){
 			atira(1);
 			ab=false;
+			curSprite=3;
 		}
 		if(ab==false) {
 			a++;
@@ -64,12 +73,12 @@ public class Player extends Entity {
 		vida-=dama;
 	}
 	public void atira(int dir) {
-		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 10, 10,damage);
+		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 100, 100,damage);
 		if(lr) {
-		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 10,10,damage);
+		s = new Shoot(Game.player.getX()+5,Game.player.getY()+7, 100,100,damage);
 			lr = false;
 		}else{
-			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 10,10,damage);
+			s = new Shoot(Game.player.getX()+5,Game.player.getY()+3, 100,100,damage);
 			lr=true;
 		}
 		s.dir = dir;
@@ -78,11 +87,6 @@ public class Player extends Entity {
 
 	
 	public void render(Graphics2D g) {
-		xg=this.getX()-Camera.x;
-		yg=this.getY()-Camera.y;
-		if(right) {
-		    g.drawImage(sprite,xg,yg,null);
-		}else {
-			g.drawImage(sprite,xg,yg,null);	
-		}
+			   
+		g.drawImage(players[curSprite], this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
 	}}
