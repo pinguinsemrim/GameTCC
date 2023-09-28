@@ -86,7 +86,6 @@ public class Player extends Entity {
 	}
 
 	
-	public void render(Graphics2D g) {
-			   
+	public void render(Graphics2D g) {	   
 		g.drawImage(players[curSprite], this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
 	}}

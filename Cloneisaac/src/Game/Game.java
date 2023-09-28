@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			colision = new ArrayList<Entity>();
 			shoot = new ArrayList<Entity>();
 			sprites();
-			player = new Player(WIDTH/2 - 30,HEIGHT/2,150,150,Entity.slime);
+			player = new Player(WIDTH/2 - 30,HEIGHT/2,50,50,Entity.slime);
 			world = new World("/level1.png");
 			ui = new Ui();
 			
