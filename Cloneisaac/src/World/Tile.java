@@ -10,8 +10,15 @@ import entities.Entity;
 
 public class Tile {
 	
-	public static BufferedImage TILE_FLOOR = Game.tile.getSprite(0,0,16,16);
-	public static BufferedImage TILE_WALL = Game.tile.getSprite(16,0,16,16);
+	public static BufferedImage TILE_FLOOR = Game.tile.getSprite(40,40,40,40);
+	public static BufferedImage TILE_WALL_TOP = Game.tile.getSprite(40,0,40,40);
+	public static BufferedImage TILE_WALL_BOTTON = Game.tile.getSprite(40,80,40,40);
+	public static BufferedImage TILE_WALL_LEFT = Game.tile.getSprite(80,40,40,40);
+	public static BufferedImage TILE_WALL_RIGHT = Game.tile.getSprite(0,40,40,40);
+	public static BufferedImage TILE_CONNER_LEFT_TOP = Game.tile.getSprite(80,0,40,40);
+	public static BufferedImage TILE_CONNER_RIGHT_TOP = Game.tile.getSprite(0,0,40,40);
+	public static BufferedImage TILE_CONNER_LEFT_BOTTON = Game.tile.getSprite(80,80,40,40);
+	public static BufferedImage TILE_CONNER_RIGHT_BOTTON = Game.tile.getSprite(0,80,40,40);
 
 	private BufferedImage sprite;
 	private double x,y;

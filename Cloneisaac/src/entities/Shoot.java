@@ -10,7 +10,7 @@ import World.Camera;
 
 public class Shoot extends Entity{
 	public int dir=0;
-	public int speed=2;
+	public int speed=6;
 	int t=0,tm=100;
 	public double dam=10;
 	double sca = 1;
@@ -28,7 +28,6 @@ public class Shoot extends Entity{
 	}
 	public void tick(){
 		if(t<tm) {
-			
 			t++;
 		}else {
 			Game.shoot.remove(this);

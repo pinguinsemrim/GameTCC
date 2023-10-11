@@ -8,7 +8,7 @@ public class Seed extends Entity{
 	int t=0,tm=150;
 	double dam=0;
 	double vx=0,vy=0;
-	double kb = 6;
+	int kb = 4;
 	public Seed (int x, int y, int width, int height,double dam,double vx,double vy) {
 		super(x, y, width, height,seed);
 		this.dam=dam;
@@ -26,12 +26,8 @@ public class Seed extends Entity{
 		y+=vy*speed;
 		
 		if(isColidding(this, Game.player)) {
-			Game.player.damege(dam);
+			Game.player.damege(dam,this);
 			Game.shoot.remove(this);
-			if(World.isFree((int)(Game.player.x + Math.cos(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb),(int)(Game.player.y += Math.sin(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb))) {
-			Game.player.x += Math.cos(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;
-			Game.player.y += Math.sin(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;
-			}
 	}
 	}
 	

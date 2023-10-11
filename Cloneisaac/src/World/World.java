@@ -1,6 +1,7 @@
 package World;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,10 +34,22 @@ public class World {
 					if(pixelAtual == 0xFF000000) {
 						tiles[xx + (yy * WIDTH)] = new Tile(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_FLOOR);						
 					}else if(pixelAtual == 0xFFffffff) {
-						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL);
-						
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL_TOP);	
+					}else if(pixelAtual == 0xFFb4b4b4) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL_BOTTON);	
+					}else if(pixelAtual == 0xFFe3e3e3) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL_LEFT);	
+					}else if(pixelAtual == 0xFFd9d9d9) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_WALL_RIGHT);	
+					}else if(pixelAtual == 0xFFff00ff) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_CONNER_LEFT_TOP);	
+					}else if(pixelAtual == 0xFFfa9bfa) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_CONNER_RIGHT_TOP);	
+					}else if(pixelAtual == 0xFFc400c4) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_CONNER_RIGHT_BOTTON);	
+					}else if(pixelAtual == 0xFF570357) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_CONNER_LEFT_BOTTON);	
 					}else if(pixelAtual == 0xFF0026FF) {
-						
 						Game.player.x =(xx*TILE_SIZE);
 						Game.player.y =(yy*TILE_SIZE);
 					}else if(pixelAtual == 0xFFFF0000) {
@@ -62,22 +75,28 @@ public class World {
 		}
 	}
 	public static boolean isFree(int xnext,int ynext) {
-		int x1 = xnext/TILE_SIZE;	
-		int y1 = ynext/TILE_SIZE;	
-		
-		int x2 = (xnext+TILE_SIZE-1)/TILE_SIZE;
-		int y2 = ynext/TILE_SIZE;
-		
-		int x3 = xnext/TILE_SIZE;
-		int y3 = (ynext + TILE_SIZE-1)/TILE_SIZE;
-		
-		int x4 = (xnext+TILE_SIZE-1)/TILE_SIZE;
-		int y4 = (ynext + TILE_SIZE-1)/TILE_SIZE;
-		
-		return !((tiles[x1 + (y1*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x2 + (y2*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x3 + (y3*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x4 + (y4*World.WIDTH )] instanceof Wall));
+		int x1 = xnext / TILE_SIZE;
+		int y1 = ynext / TILE_SIZE;
+
+		int x2 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y2 = ynext / TILE_SIZE;
+
+		int x3 = xnext / TILE_SIZE;
+		int y3 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		int x4 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y4 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		try {
+		    return !((tiles[x1 + (y1 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x2 + (y2 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x3 + (y3 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x4 + (y4 * World.WIDTH)] instanceof Wall));
+		} catch (ArrayIndexOutOfBoundsException e) {
+		    // Trate a exceção aqui (por exemplo, retornando false ou lançando outra exceção)
+		    // Você pode adicionar um registro de erro ou tratamento personalizado, se necessário.
+		    return false; // Ou faça algo mais apropriado para sua lógica de negócios.
+		}
 		}
 	
 	public static void passaGame(int lvl){

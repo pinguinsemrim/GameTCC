@@ -20,6 +20,7 @@ public class Entity {
 	public static BufferedImage flower = Game.flower.getSprite(0, 0, 40, 40);
 	public static BufferedImage seed = Game.seed.getSprite(0, 0, 9, 9);
 	public static BufferedImage koala1 = Game.koala.getSprite(0, 0, 24, 40);
+	public static BufferedImage koalaboll = Game.koala.getSprite(0, 20, 24, 20);
 	public static BufferedImage ball = Game.boll.getSprite(0, 0, 43, 39);
 	public Entity (int x,int y,int width,int height,BufferedImage sprite) {
 	this.x = x ;	

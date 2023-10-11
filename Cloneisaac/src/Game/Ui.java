@@ -17,7 +17,7 @@ public class Ui {
 		maxdraw = Game.player.maxvida/2;
 	}	
 	public void render(Graphics g) {
-		
+		g.drawString("kills: "+Game.player.kills, Game.WIDTH-20, 20);
 		for(int i=0;i<maxdraw;i++) {
 			 g.drawImage(hollow, 0+(i*25), 0,25,25, null);
 			 if(Game.player.vida%2!=0 && draw==i) {
