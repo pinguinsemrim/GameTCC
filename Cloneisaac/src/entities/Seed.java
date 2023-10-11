@@ -25,7 +25,7 @@ public class Seed extends Entity{
 		x+=vx*speed;
 		y+=vy*speed;
 		
-		if(isColidding(this, Game.player)) {
+		if(isColidding(this, Game.player) && !Game.player.dam) {
 			Game.player.damege(dam,this);
 			Game.shoot.remove(this);
 	}

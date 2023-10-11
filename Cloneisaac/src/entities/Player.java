@@ -12,7 +12,7 @@ import World.World;
 public class Player extends Entity {
 		public boolean right,up,left,down;
 		public boolean aright,aup,aleft,adown;
-		int iframeMax=60,iframe=0;
+		int iframeMax=30,iframe=0;
 		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
 		public double damage=10,speed=2.2;
@@ -20,8 +20,8 @@ public class Player extends Entity {
 		public int maxvida = 8,vida =maxvida;
 		private BufferedImage[] players;
 		private int maxSprite=4,curSprite;
-		private boolean dam=false;
-		public int kb= 4;
+		public boolean dam=false;
+		public int kb= 10;
 		public Player(int x, int y, int width, int height,BufferedImage sprite) {
 			super(x, y, width, height, sprite);
 			players = new BufferedImage[4];
@@ -85,7 +85,7 @@ public class Player extends Entity {
 		if(!dam) {
 		dam=true;
 		vida-=dama;
-		if(World.isFree((int)(x + Math.cos(e1.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb),(int)(y += Math.sin(e1.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb))) {
+		if(World.isFree((int)(x + Math.cos(e1.calculateAngle(e1.getX(), e1.getY(),this.getX(),this.getY()))*kb),(int)(y + Math.sin(e1.calculateAngle(e1.getX(), e1.getY(),this.getX(),this.getY()))*kb))) {
 			x += Math.cos(this.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb;
 			y += Math.sin(this.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb;
 			}}
@@ -105,7 +105,14 @@ public class Player extends Entity {
 
 	
 	public void render(Graphics2D g) {	   
-		
+		boolean in = false;
+		if(dam) {
+			in=true;
+		}
+		if(!in) {
 		g.drawImage(players[curSprite], this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
+		}else {
+		g.drawImage(invecible, this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
+		}
 		
 	}}
