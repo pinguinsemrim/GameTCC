@@ -43,9 +43,7 @@ public class Flower extends Entity {
 			animate=false;
 		}
 		if(isColidding(this,Game.player) && ab) {
-			Game.player.damege(dama);
-			Game.player.x += Math.cos(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;
-			Game.player.y += Math.sin(this.calculateAngle(this.getX(), this.getY(),Game.player.getX(),Game.player.getY()))*kb;		
+			Game.player.damege(dama,this);
 		}
 		if(a<ma) {
 			a++;
@@ -88,7 +86,8 @@ public class Flower extends Entity {
 					   DFAnima=0;
 					   if(dcurSprite == dmaxSprite) {
 						   Game.entities.remove(this);
-						   Game.enimies.remove(this);					 
+						   Game.enimies.remove(this);	
+						   Game.player.kills++;
 		      }}}
 			g.drawImage(sprite,this.getX()-Camera.x,this.getY()-Camera.y,this.getWidth(),this.getHeight(),null);	
 	}}

@@ -32,12 +32,15 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static final double SCALE = 3;
 		public static final int WIDTH = 230;
 		public static final int HEIGHT = 150;
+		public static int gameState =1;//0=StartMenu,1=Normal,2=GameOver
 		private BufferedImage image;
 		public static Random rand;
 		public static ArrayList<Entity> entities;
 		public static ArrayList<Entity> enimies;
 		public static ArrayList<Entity> shoot;
 		public static ArrayList<Entity> colision;
+		public static boolean clic =false;
+        public static int cx =0,cy=0;
 		public static Spritesheet health;
 		public static Spritesheet tear;
 		public static Spritesheet boll;
@@ -50,6 +53,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		public static Spritesheet koala;
 		public static Player player;
 		public static Ui ui;
+		public static gameOver gO;
 		public static World world;
 		
 		//public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont1.ttf"); 
@@ -57,7 +61,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		public int mx,my;
 		public int[] pixels;
-		public void sprites() {
+		public static void sprites() {
 			deathflower = new Spritesheet("/deathFlower.png");
 			health = new Spritesheet("/Health.png");
 			tile = new Spritesheet("/Tiles.png");
@@ -79,10 +83,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			initFrame();
 			//Sound.musicew.loop( );
 			rand = new Random();
-			 
-	//inzalando as coisas	
+			//inzalando as coisas	
 			image =new BufferedImage((int)(160*(SCALE)),(int)(120*(SCALE)),BufferedImage.TYPE_INT_RGB);
-			
 			entities = new ArrayList<Entity>();
 			enimies = new ArrayList<Entity>();
 			colision = new ArrayList<Entity>();
@@ -91,7 +93,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			player = new Player(WIDTH/2 - 30,HEIGHT/2,50,50,Entity.slime);
 			world = new World("/level1.png");
 			ui = new Ui();
-			
+			gO = new gameOver();
 			entities.add(player);
 		}
 		public void initFrame() {
@@ -125,6 +127,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		}
 		public void tick() {//tick das entidades e tiros
+			if(gameState ==1) {
 			for(int i =0;i<entities.size();i++) {
 				entities.get(i).tick();
 			}
@@ -132,6 +135,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 				shoot.get(i).tick();
 			}
 			ui.tick();
+			}else if(gameState==2) {
+				gO.tick();
+			}
 		}
 		
 		public void render(){
@@ -155,6 +161,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			shoot.get(i).render(g2);
 		}
 		ui.render(g);
+		if(gameState==2) {
+			gO.render(g2);
+		}
 	    //terminou??
 		g.dispose();
 		g = bs.getDrawGraphics();
@@ -209,6 +218,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			}if(e.getKeyCode() == e.VK_UP) {
 				player.aup = true;
 			}
+			if(e.getKeyCode() == e.VK_N) {
+				gO.rec=true;
+			}
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
@@ -241,7 +253,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+			clic=true;
+			   cy=e.getY()/3;
+			   cx=e.getX()/3;
 		}
 		@Override
 		public void mouseReleased(MouseEvent e) {
@@ -265,7 +279,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		}
 		@Override
 		public void mouseMoved(MouseEvent e) {
-		
+			gO.ccx=e.getX()/3;
+			gO.ccy=e.getY()/3;
 		}
 
 	}

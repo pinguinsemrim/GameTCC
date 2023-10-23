@@ -1,17 +1,23 @@
 package World;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 import World.Wall;
 import entities.Enemy;
 import entities.Entity;
 import entities.Flower;
+import entities.Player;
 import entities.Rock;
 import itens.Updam;
 import Game.Game;
+import Game.Ui;
+import Game.gameOver;
 public class World {
 	public static Tile[] tiles;
 	public static int WIDTH,HEIGHT;
@@ -52,17 +58,17 @@ public class World {
 						Game.player.x =(xx*TILE_SIZE);
 						Game.player.y =(yy*TILE_SIZE);
 					}else if(pixelAtual == 0xFFFF0000) {
-						//Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.flower);
-						//Game.entities.add(enemy);
-						//Game.enimies.add(enemy);
+						Flower enemy = new Flower(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.flower);
+						Game.entities.add(enemy);
+						Game.enimies.add(enemy);
 					}else if(pixelAtual == 0xFF7F6A00) {
 						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
 						Game.colision.add(rock);
 						Game.entities.add(rock);
 					}else if(pixelAtual == 0xFFFF6A00) {
-						//Enemy enemy = new Enemy(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.koala1);
-						//Game.entities.add(enemy);
-						//Game.enimies.add(enemy);;
+						Enemy enemy = new Enemy(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.koala1);
+						Game.entities.add(enemy);
+						Game.enimies.add(enemy);;
 					}
 					else if(pixelAtual == 0xFF99d9ea) {
 						Updam updam = new Updam(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
@@ -74,30 +80,40 @@ public class World {
 		}
 	}
 	public static boolean isFree(int xnext,int ynext) {
-		int x1 = xnext/TILE_SIZE;	
-		int y1 = ynext/TILE_SIZE;	
-		
-		int x2 = (xnext+TILE_SIZE-1)/TILE_SIZE;
-		int y2 = ynext/TILE_SIZE;
-		
-		int x3 = xnext/TILE_SIZE;
-		int y3 = (ynext + TILE_SIZE-1)/TILE_SIZE;
-		
-		int x4 = (xnext+TILE_SIZE-1)/TILE_SIZE;
-		int y4 = (ynext + TILE_SIZE-1)/TILE_SIZE;
-		
-		return !((tiles[x1 + (y1*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x2 + (y2*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x3 + (y3*World.WIDTH )] instanceof Wall) 
-				|| (tiles[x4 + (y4*World.WIDTH )] instanceof Wall));
+		int x1 = xnext / TILE_SIZE;
+		int y1 = ynext / TILE_SIZE;
+
+		int x2 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y2 = ynext / TILE_SIZE;
+
+		int x3 = xnext / TILE_SIZE;
+		int y3 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		int x4 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y4 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		try {
+		    return !((tiles[x1 + (y1 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x2 + (y2 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x3 + (y3 * World.WIDTH)] instanceof Wall)
+		            || (tiles[x4 + (y4 * World.WIDTH)] instanceof Wall));
+		} catch (ArrayIndexOutOfBoundsException e) {
+		    // Trate a exceção aqui (por exemplo, retornando false ou lançando outra exceção)
+		    // Você pode adicionar um registro de erro ou tratamento personalizado, se necessário.
+		    return false; // Ou faça algo mais apropriado para sua lógica de negócios.
+		}
 		}
 	
 	public static void passaGame(int lvl){
-		//Game.spritesheet = new Spritesheet("/spritesheet.png");
-		//Game.titulo = new Spritesheet("/meen.png");
 		Game.entities = new ArrayList<Entity>();
-		//Game.player = new Player(WIDTH/2 - 30,HEIGHT/2,16,32,2,Entity.PLAYER_SPRITE[0]);
-		Game.world = new World("/level"+lvl+".png");
+		Game.enimies = new ArrayList<Entity>();
+		Game.colision = new ArrayList<Entity>();
+		Game.shoot = new ArrayList<Entity>();
+		Game.sprites();
+		Game.player = new Player(WIDTH/2 - 30,HEIGHT/2,50,50,Entity.slime);
+		Game.world = new World("/level1.png");
+		Game.ui = new Ui();
+		Game.gO = new gameOver();
 		Game.entities.add(Game.player);
 	}
 	

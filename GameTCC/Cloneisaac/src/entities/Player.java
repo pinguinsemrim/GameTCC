@@ -12,13 +12,16 @@ import World.World;
 public class Player extends Entity {
 		public boolean right,up,left,down;
 		public boolean aright,aup,aleft,adown;
+		int iframeMax=30,iframe=0;
 		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
-		public double damage=1,speed=2.2;
-		public int maxvida = 8,vida =maxvida;
+		public double damage=10,speed=2.2;
+		public int kills=0;
+		public int maxvida = 1,vida =maxvida;
 		private BufferedImage[] players;
 		private int maxSprite=4,curSprite;
-		private boolean dam=false;
+		public boolean dam=false;
+		public int kb= 10;
 		public Player(int x, int y, int width, int height,BufferedImage sprite) {
 			super(x, y, width, height, sprite);
 			players = new BufferedImage[4];
@@ -27,15 +30,25 @@ public class Player extends Entity {
 				}
 		}
 	public void tick(){
-		if(up &&World.isFree(this.getX(), this.getY()-(int)(speed))) {
+		if(dam) {
+			iframe++;
+			System.out.println("invencivel");
+			if(iframe==iframeMax) {
+				dam=false;
+				System.out.println("não invencivel");
+				iframe=0;
+			}}
+			
+		if(up &&World.isFree(this.getX(), (int)(this.getY()-speed))) {
 			y-=speed;
-		}else if(down &&World.isFree(this.getX(), this.getY()+(int)(speed))) {
+		}else if(down &&World.isFree(this.getX(), (int)(this.getY()+speed))) {
 			y+=speed;
-		}if(left &&World.isFree(this.getX()-(int)(speed), this.getY())) {
+		}if(left &&World.isFree((int)(this.getX()-speed), this.getY())) {
 			x-=speed;
-		}else if(right &&World.isFree(this.getX()+(int)(speed), this.getY())) {
+		}else if(right &&World.isFree((int)(this.getX()+speed), this.getY())) {
 			x+=speed;
 		}
+		
 		if(aup && ab) {
 			atira(3);
 			ab=false;
@@ -61,16 +74,22 @@ public class Player extends Entity {
 			}
 		}
 		if(vida <=0) {
-			Game.frame.dispose();
+			//Game.frame.dispose();
+			Game.gameState=2;
 		}
 		
-    	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH/2),0,World.WIDTH*World.TILE_SIZE-Game.WIDTH);
-    	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT/2),0,World.HEIGHT*World.TILE_SIZE-Game.HEIGHT);
+    	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH),0,World.WIDTH*World.TILE_SIZE-Game.WIDTH*2-20);
+    	Camera.y =Camera.clamp(this.getY()-(Game.HEIGHT),0,World.HEIGHT*World.TILE_SIZE-Game.HEIGHT*2-60);
 
 	}
-	public void damege(double dama) {
+	public void damege(double dama,Entity e1) {
+		if(!dam) {
 		dam=true;
 		vida-=dama;
+		if(World.isFree((int)(x + Math.cos(e1.calculateAngle(e1.getX(), e1.getY(),this.getX(),this.getY()))*kb),(int)(y + Math.sin(e1.calculateAngle(e1.getX(), e1.getY(),this.getX(),this.getY()))*kb))) {
+			x += Math.cos(this.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb;
+			y += Math.sin(this.calculateAngle(e1.getX(), e1.getY(),Game.player.getX(),Game.player.getY()))*kb;
+			}}
 	}
 	public void atira(int dir) {
 		Shoot s = new Shoot(this.getX()-Camera.x,this.getY()-Camera.y, 20, 20,damage);
@@ -87,5 +106,14 @@ public class Player extends Entity {
 
 	
 	public void render(Graphics2D g) {	   
+		boolean in = false;
+		if(dam) {
+			in=true;
+		}
+		if(!in) {
 		g.drawImage(players[curSprite], this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
+		}else {
+		g.drawImage(invecible, this.getX()-Camera.x, this.getY()-Camera.y, width, height,null);
+		}
+		
 	}}

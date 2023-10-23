@@ -28,7 +28,6 @@ public class Shoot extends Entity{
 	}
 	public void tick(){
 		if(t<tm) {
-			
 			t++;
 		}else {
 			Game.shoot.remove(this);
