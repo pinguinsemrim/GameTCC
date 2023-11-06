@@ -9,7 +9,7 @@ import World.Camera;
 
 public class Flower extends Entity {
 	public boolean dam =false;
-	public int vida =10;
+	public int vida =15;
 	public int ma=30,a=0,dir=0;
 	private double kb =50,dama=1;
 	public boolean ab=true,animate=false,at=false,death;

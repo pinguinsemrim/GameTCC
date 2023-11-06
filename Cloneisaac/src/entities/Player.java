@@ -15,9 +15,9 @@ public class Player extends Entity {
 		int iframeMax=30,iframe=0;
 		public int ma=30,a=0,xg,yg;
 		public boolean ab=true,lr=false,colu=false,cold=false,coll=false,colr=false;
-		public double damage=10,speed=2.2;
+		public double damage=4,speed=2.2;
 		public int kills=0;
-		public int maxvida = 8,vida =maxvida;
+		public int maxvida = 6,vida =maxvida;
 		private BufferedImage[] players;
 		private int maxSprite=4,curSprite;
 		public boolean dam=false;
@@ -74,7 +74,8 @@ public class Player extends Entity {
 			}
 		}
 		if(vida <=0) {
-			Game.frame.dispose();
+			//Game.frame.dispose();
+			Game.gameState=2;
 		}
 		
     	Camera.x =Camera.clamp(this.getX()-(Game.WIDTH),0,World.WIDTH*World.TILE_SIZE-Game.WIDTH*2-20);

@@ -68,11 +68,11 @@ public class Enemy extends Entity {
 		if(dir==1) {
 			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
 		}else if(dir==2) {
-			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+			g.drawImage(koala2, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
 		}else if(dir==3) {
-			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+			g.drawImage(koala3, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
 		}else {
-			g.drawImage(koala1, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
+			g.drawImage(koala4, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	
 		}
 		if(dead) {
 			g.drawImage(koalaboll, this.getX()-Camera.x, this.getY()-Camera.y, width, height, null);	

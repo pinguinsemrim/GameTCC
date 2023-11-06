@@ -5,14 +5,19 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 import World.Wall;
 import entities.Enemy;
 import entities.Entity;
 import entities.Flower;
+import entities.Player;
 import entities.Rock;
 import itens.Updam;
 import Game.Game;
+import Game.Ui;
+import Game.gameOver;
 public class World {
 	public static Tile[] tiles;
 	public static int WIDTH,HEIGHT;
@@ -57,9 +62,10 @@ public class World {
 						Game.entities.add(enemy);
 						Game.enimies.add(enemy);
 					}else if(pixelAtual == 0xFF7F6A00) {
+						tiles[xx + (yy * WIDTH)] = new Wall(xx*TILE_SIZE,yy*TILE_SIZE,Tile.TILE_FLOOR);
 						Rock rock = new Rock(xx*TILE_SIZE,yy*TILE_SIZE,40,40);
-						Game.colision.add(rock);
 						Game.entities.add(rock);
+						
 					}else if(pixelAtual == 0xFFFF6A00) {
 						Enemy enemy = new Enemy(xx*TILE_SIZE,yy*TILE_SIZE,50,50,Entity.koala1);
 						Game.entities.add(enemy);
@@ -99,12 +105,18 @@ public class World {
 		}
 		}
 	
-	public static void passaGame(int lvl){
-		//Game.spritesheet = new Spritesheet("/spritesheet.png");
-		//Game.titulo = new Spritesheet("/meen.png");
+	public static void passaGame(){
+		int lvl = Game.rand.nextInt(1, 2);
+		System.out.println(lvl);
 		Game.entities = new ArrayList<Entity>();
-		//Game.player = new Player(WIDTH/2 - 30,HEIGHT/2,16,32,2,Entity.PLAYER_SPRITE[0]);
-		Game.world = new World("/level"+lvl+".png");
+		Game.enimies = new ArrayList<Entity>();
+		Game.colision = new ArrayList<Entity>();
+		Game.shoot = new ArrayList<Entity>();
+		Game.sprites();
+		Game.player = new Player(WIDTH/2 - 30,HEIGHT/2,50,50,Entity.slime);
+		Game.world = new World("/Room"+lvl+".png");
+		Game.ui = new Ui();
+		Game.gO = new gameOver();
 		Game.entities.add(Game.player);
 	}
 	
