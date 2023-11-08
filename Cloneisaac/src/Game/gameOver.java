@@ -14,7 +14,7 @@ public class gameOver {
 		if(Game.clic) {
 			if(Game.cy >= 50 && Game.cy <=67) {
 				if(Game.cx >= 77 && Game.cx<=155) {
-				World.passaGame();
+				World.passaGame(1);
 				Game.gameState=1;}
 			}
 			if(Game.cy >= 69 && Game.cy <=84) {

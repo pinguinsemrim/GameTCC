@@ -30,6 +30,9 @@ public class Player extends Entity {
 				}
 		}
 	public void tick(){
+		if(Game.enimies.size() == 0) {
+			World.passaGame(2);
+		}
 		if(dam) {
 			iframe++;
 			System.out.println("invencivel");

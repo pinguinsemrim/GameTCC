@@ -1,12 +1,11 @@
 package entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import Game.Game;
 import World.Camera;
+import World.World;
 
 public class Shoot extends Entity{
 	public int dir=0;
@@ -40,6 +39,9 @@ public class Shoot extends Entity{
 			y+=speed;
 		}if(dir==3) {
 			y-=speed;
+		}
+		if(!World.isFree(this.getX(), this.getY())) {
+			Game.shoot.remove(this);
 		}
 		for(int i=0;i<Game.enimies.size();i++) {
 				if(Entity.isColidding(this, Game.enimies.get(i))) {

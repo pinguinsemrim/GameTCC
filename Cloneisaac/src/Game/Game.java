@@ -142,6 +142,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			}else if(gameState==0) {
 				menu.tick();
 			}
+			
 		}
 		
 		public void render(){

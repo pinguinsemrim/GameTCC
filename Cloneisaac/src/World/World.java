@@ -105,8 +105,7 @@ public class World {
 		}
 		}
 	
-	public static void passaGame(){
-		int lvl = Game.rand.nextInt(1, 2);
+	public static void passaGame(int lvl){
 		System.out.println(lvl);
 		Game.entities = new ArrayList<Entity>();
 		Game.enimies = new ArrayList<Entity>();
